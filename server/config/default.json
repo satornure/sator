@@ -4,6 +4,11 @@
     "password": null,
     "database": null,
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "routerOptions": {
+      "caseSensitive": true,
+      "mergeParams": true,
+      "strict": true
+    }
   }
 }
