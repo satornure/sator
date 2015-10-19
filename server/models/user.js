@@ -9,6 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
 
     },
+    updatedAt: false,
     underscored: true,
     freezeTableName: true,
     tableName: 'users'
