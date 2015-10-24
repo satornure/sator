@@ -5,22 +5,22 @@ var auth = require('../lib/auth');
 var User = require('../models').User;
 
 /* GET users listing. */
-router.get('/login', function(req, res, next) {
-  res.send('respond with a resource');
+router.post('/login', auth.passport.authenticate('local'));
+
+router.post('/register', function(req, res, next) {
+  User.isValid(req.body, function (valid, err) {
+    if (err) {
+      return next(err);
+    }
+
+    User.create(req.body).then(function (user) {
+      res.send(user);
+    });
+  });
 });
 
-router.get('/register', function(req, res, next) {
-  var data = {
-    name: 'test',
-    email: 'test@example.com',
-    password: 'asdasddasdasdasdd',
-    login: 'test',
-    createdAt: Date.now()
-  };
-
-  User.create(data).then(function (user) {
-    console.log(user);
-  });
+router.get('/test', function(req, res) {
+  res.send('response');
 });
 
 module.exports = router;
