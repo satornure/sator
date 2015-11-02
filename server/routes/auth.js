@@ -19,8 +19,4 @@ router.post('/register', function(req, res, next) {
   });
 });
 
-router.get('/test', function(req, res) {
-  res.send('response');
-});
-
 module.exports = router;
