@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Ingredient = sequelize.define('Ingredient', {
-    name: DataTypes.STRING,
+    name: DataTypes.STRING(30),
     description: DataTypes.TEXT
   }, {
     classMethods: {
@@ -11,7 +11,6 @@ module.exports = function(sequelize, DataTypes) {
     },
     updatedAt: false,
     createdAt: false,
-    underscored: true,
     freezeTableName: true,
     tableName: 'ingredients'
   });

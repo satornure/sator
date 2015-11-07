@@ -8,9 +8,12 @@ var User = require('../models').User;
 router.post('/login', auth.passport.authenticate('local'));
 
 router.post('/register', function(req, res, next) {
-  User.isValid(req.body, function (valid, err) {
+  User.isValid(req.body, function (valid, messages, err) {
     if (err) {
       return next(err);
+    }
+    if (!valid) {
+      return res.send(messages);
     }
 
     User.create(req.body).then(function (user) {

@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Recipe = sequelize.define('Recipe', {
-    name: DataTypes.STRING,
+    name: DataTypes.STRING(30),
     description: DataTypes.TEXT,
     rate: DataTypes.FLOAT
   }, {
@@ -10,7 +10,6 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
       }
     },
-    underscored: true,
     freezeTableName: true,
     tableName: 'recipes'
   });
