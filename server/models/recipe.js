@@ -5,11 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     description: DataTypes.TEXT,
     rate: DataTypes.FLOAT
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    },
+    timestamps: false,
     freezeTableName: true,
     tableName: 'recipes'
   });

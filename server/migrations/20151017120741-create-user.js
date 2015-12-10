@@ -1,8 +1,7 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return [
-      queryInterface.createTable('users', {
+    return queryInterface.createTable('users', {
         id: {
           allowNull: false,
           autoIncrement: true,
@@ -24,19 +23,14 @@ module.exports = {
           allowNull: false,
           type: Sequelize.STRING
         },
-        created_at: {
+        createdAt: {
           allowNull: false,
-          type: Sequelize.DATE
+          type: Sequelize.INTEGER
         }
-      }),
-      queryInterface.addIndex('users',
-        ['email'],
-        {
-          name: 'unq_users_email',
-          indicesType: 'UNIQUE'
-        }
-      )
-    ];
+      })
+      .then(function () {
+        return queryInterface.addIndex('users', ['email'], {name: 'unq_users_email', indicesType: 'UNIQUE'});
+      });
   },
   down: function(queryInterface, Sequelize) {
     return queryInterface.dropTable('users');

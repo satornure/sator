@@ -4,6 +4,7 @@ var router = express.Router(config.routerOptions);
 
 router.route('/recipe')
   .get(function (req, res, next) {
+    res.send('success');
     //TODO: return recipes
   })
   .post(function (req, res) {
@@ -15,3 +16,5 @@ router.route('/recipe')
   .delete(function (req, res) {
     //TODO: delete
   });
+
+module.exports = router;

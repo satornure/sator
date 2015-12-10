@@ -4,13 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING(30),
     description: DataTypes.TEXT
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    },
-    updatedAt: false,
-    createdAt: false,
+    timestamps: false,
     freezeTableName: true,
     tableName: 'ingredients'
   });

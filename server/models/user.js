@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING(20),
     email: DataTypes.STRING(50),
     username: DataTypes.STRING(20),
-    password:DataTypes.STRING
+    password: DataTypes.STRING,
+    createdAt: DataTypes.INTEGER
   }, {
     classMethods: {
       validPassword: function (password) {
@@ -28,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
           });
       }
     },
-    updatedAt: false,
+    timestamps: false,
     freezeTableName: true,
     tableName: 'users'
   });

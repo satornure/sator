@@ -1,5 +1,5 @@
-module.exports = function () {
+var Recipe = function () {
 
 };
 
-module.exports.prototype.
+module.exports = Recipe;
