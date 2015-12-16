@@ -8,7 +8,7 @@ var userValidation = require('../validation').user;
 router.post('/login', auth.passport.authenticate('local'));
 
 router.post('/register', function(req, res, next) {
-  req.check(userValidation);
+  req.checkBody(userValidation);
 
   var errors = req.validationErrors();
 

@@ -2,10 +2,18 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Recipe = sequelize.define('Recipe', {
-    name: DataTypes.STRING(30),
+    title: DataTypes.STRING(30),
     description: DataTypes.TEXT,
     rate: DataTypes.FLOAT
   }, {
+    classMethods: {
+      associate: function (models) {
+        Recipe.belongsTo(models.RecipeIngredient, {
+          as: 'recipes',
+          constraints: false
+        })
+      }
+    },
     timestamps: false,
     freezeTableName: true,
     tableName: 'recipes'

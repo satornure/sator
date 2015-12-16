@@ -2,37 +2,42 @@
 
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('users', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      name: {
-        type: Sequelize.STRING(20)
-      },
-      email: {
-        allowNull: false,
-        type: Sequelize.STRING(50)
-      },
-      username: {
-        allowNull: false,
-        type: Sequelize.STRING(20)
-      },
-      password: {
-        allowNull: false,
-        type: Sequelize.STRING(32)
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      }
-    })
+    return queryInterface
+      .createTable('users', {
+        id: {
+          allowNull: false,
+          autoIncrement: true,
+          primaryKey: true,
+          type: Sequelize.INTEGER
+        },
+        name: {
+          type: Sequelize.STRING(20)
+        },
+        email: {
+          allowNull: false,
+          type: Sequelize.STRING(50)
+        },
+        username: {
+          allowNull: false,
+          type: Sequelize.STRING(20)
+        },
+        password: {
+          allowNull: false,
+          type: Sequelize.STRING(32)
+        },
+        createdAt: {
+          allowNull: false,
+          type: Sequelize.INTEGER
+        }
+      }, {
+        engine: 'InnoDB',
+        charset: 'utf8'
+      })
       .then(function () {
         return queryInterface.addIndex('users', ['email'], {name: 'unq_users_email', indicesType: 'UNIQUE'});
       });
   },
+
   down: function(queryInterface, Sequelize) {
     return queryInterface.dropTable('users');
   }
