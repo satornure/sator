@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
         });
 
         RecipeIngredient.hasMany(models.Ingredient, {
-          as: 'ingredients',
+          as: 'ingredient',
           onDelete: 'CASCADE',
           onUpdate: 'CASCADE',
           foreignKey: {
@@ -24,7 +24,10 @@ module.exports = function(sequelize, DataTypes) {
           }
         });
       }
-    }
+    },
+    timestamps: false,
+    freezeTableName: true,
+    tableName: 'recipe_ingredients'
   });
   return RecipeIngredient;
 };

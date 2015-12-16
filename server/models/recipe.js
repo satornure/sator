@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function (models) {
         Recipe.belongsTo(models.RecipeIngredient, {
-          as: 'recipes',
+          as: 'recipeIngredient',
           constraints: false
         })
       }
