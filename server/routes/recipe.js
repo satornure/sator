@@ -4,12 +4,12 @@ var router = express.Router(config.routerOptions);
 var recipeValidation = require('../validation').recipe;
 var Recipe = new (require('../lib/recipe'));
 
-router.route('/recipe')
+router.route('/recipe(/update-ingredients)?')
   .get(function (req, res, next) {
     res.send('success');
     //TODO: return recipes
   })
-  .post(function (req, res) {
+  .post(function (req, res, next) {
     req.checkBody(recipeValidation);
 
     var errors = req.validationErrors();
@@ -27,7 +27,18 @@ router.route('/recipe')
         return next(error);
       });
   })
-  .put(function (req, res) {
+  .put(function (req, res, next) {
+    if (!req.params.updateIngredients) {
+      return next();
+    }
+
+    Recipe
+      .get(req.body.recipe)
+      .then(function (recipe) {
+        Recipe.removeIngredient()
+      })
+  })
+  .put(function (req, res, next) {
     req.checkBody(recipeValidation);
 
     var errors = req.validationErrors();
@@ -45,7 +56,7 @@ router.route('/recipe')
         return next(error);
       });
   })
-  .delete(function (req, res) {
+  .delete(function (req, res, next) {
     return Recipe
       .delete(req.body)
       .then(function () {

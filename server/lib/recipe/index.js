@@ -1,6 +1,7 @@
 var models = require('../../models');
 var RecipeModel = models.Recipe;
 var RecipeIngredientModel = models.RecipeIngredient;
+var Ingredient = new (require('../ingredient'));
 
 var Recipe = function (recipe) {
   this.recipe = recipe;
@@ -37,16 +38,56 @@ Recipe.prototype.delete = function () {
 
 Recipe.prototype.addIngredient = function (ingredient) {
   var data = {
-    ingredient: ingredient.id,
-    recipe: this.recipe.id
+    recipe: this.recipe.id,
+    ingredient: ingredient.id
   };
+
   return RecipeIngredientModel.create(data);
 };
 
-Recipe.prototype.removeIngredient = function (ingredient) {
+Recipe.prototype.updateIngredients = function (ids) {
+  var self = this;
+  return this
+    ._removeIngredients(ids)
+    .then(function () {
+      return self._filterExistingIngredients(ids);
+    })
+    .then(function (filteredIds) {
+      return Ingredient.get(filteredIds);
+    })
+    .then(function (ingredients) {
+      var promises = [];
+      ingredients.forEach(function (ingredient) {
+        promises.push(self.addIngredient(ingredient));
+      });
+
+      //TODO: check if module exist
+      return Promise.all(promises);
+    });
+};
+
+Recipe.prototype._removeIngredients = function (ids) {
   return RecipeIngredientModel.destroy({
-    where: {recipe: this.recipe.id, ingredient: ingredient.id}
+    where: {
+      recipe: this.recipe.id,
+      ingredient: {$notIn: ids}
+    }
   });
+};
+
+Recipe.prototype._filterExistingIngredients = function (ids) {
+  return RecipeIngredientModel
+    .findAll({where: {recipe: this.recipe.id, ingredient: ids}})
+    .then(function (recipeIngredients) {
+      var notExist = ids.slice();
+      recipeIngredients.forEach(function (item) {
+        var position = notExist.indexOf(item.id);
+        if (-1 !== position) {
+          notExist.splice(position, 1);
+        }
+      });
+      return notExist;
+    });
 };
 
 module.exports = Recipe;
