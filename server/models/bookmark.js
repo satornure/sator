@@ -1,12 +1,12 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  var RecipeIngredient = sequelize.define('RecipeIngredient', {
+  var Bookmark = sequelize.define('Bookmark', {
 
   }, {
     classMethods: {
       associate: function(models) {
-        RecipeIngredient.hasMany(models.Recipe, {
+        Bookmark.hasMany(models.Recipe, {
           as: 'recipe',
           onDelete: 'CASCADE',
           onUpdate: 'CASCADE',
@@ -15,8 +15,8 @@ module.exports = function(sequelize, DataTypes) {
           }
         });
 
-        RecipeIngredient.hasMany(models.Ingredient, {
-          as: 'ingredient',
+        Bookmark.hasMany(models.User, {
+          as: 'user',
           onDelete: 'CASCADE',
           onUpdate: 'CASCADE',
           foreignKey: {
@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     timestamps: false,
     freezeTableName: true,
-    tableName: 'recipe_ingredients'
+    tableName: 'bookmarks'
   });
-  return RecipeIngredient;
+  return Bookmark;
 };

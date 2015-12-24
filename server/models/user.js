@@ -8,6 +8,17 @@ module.exports = function(sequelize, DataTypes) {
     password: DataTypes.STRING(32),
     createdAt: DataTypes.INTEGER
   }, {
+    associate: function(models) {
+      User.belongsTo(models.Bookmark, {
+        as: 'bookmark',
+        constraints: false
+      });
+
+      User.belongsTo(models.Comment, {
+        as: 'comment',
+        constraints: false
+      });
+    },
     timestamps: false,
     freezeTableName: true,
     tableName: 'users'

@@ -11,7 +11,12 @@ module.exports = function(sequelize, DataTypes) {
         Recipe.belongsTo(models.RecipeIngredient, {
           as: 'recipeIngredient',
           constraints: false
-        })
+        });
+
+        Recipe.belongsTo(models.Comment, {
+          as: 'comment',
+          constraints: false
+        });
       }
     },
     timestamps: false,

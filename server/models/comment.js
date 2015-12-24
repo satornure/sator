@@ -1,12 +1,11 @@
 'use strict';
-
 module.exports = function(sequelize, DataTypes) {
-  var RecipeIngredient = sequelize.define('RecipeIngredient', {
-
+  var Comment = sequelize.define('Comment', {
+    message: DataTypes.STRING(255)
   }, {
     classMethods: {
       associate: function(models) {
-        RecipeIngredient.hasMany(models.Recipe, {
+        Comment.hasOne(models.Recipe, {
           as: 'recipe',
           onDelete: 'CASCADE',
           onUpdate: 'CASCADE',
@@ -15,8 +14,8 @@ module.exports = function(sequelize, DataTypes) {
           }
         });
 
-        RecipeIngredient.hasMany(models.Ingredient, {
-          as: 'ingredient',
+        Comment.hasMany(models.User, {
+          as: 'user',
           onDelete: 'CASCADE',
           onUpdate: 'CASCADE',
           foreignKey: {
@@ -24,10 +23,7 @@ module.exports = function(sequelize, DataTypes) {
           }
         });
       }
-    },
-    timestamps: false,
-    freezeTableName: true,
-    tableName: 'recipe_ingredients'
+    }
   });
-  return RecipeIngredient;
+  return Comment;
 };
